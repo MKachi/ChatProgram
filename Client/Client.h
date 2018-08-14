@@ -2,6 +2,7 @@
 
 #include "Type.h"
 #include <queue>
+#include <mutex>
 
 enum { RECEIVE_BUFFER_MAX = 512 };
 class Client
@@ -15,6 +16,7 @@ private:
 	int _packetMark;
 	bool _login;
 
+	std::mutex _mutex;
 	std::queue<char*> _sendDataQueue;
 
 	void receive();
