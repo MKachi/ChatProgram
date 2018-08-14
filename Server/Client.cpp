@@ -22,7 +22,7 @@ void Client::receive()
 {
 	_socket.async_read_some(
 		boost::asio::buffer(_receiveBuffer),
-		std::bind(&Client::receiveHandle, this,
+		boost::bind(&Client::receiveHandle, this,
 			boost::asio::placeholders::error,
 			boost::asio::placeholders::bytes_transferred)
 	);
@@ -111,7 +111,7 @@ void Client::writeHandle(const ErrorCode& error, uint bytesTransferred)
 	delete[] _sendDataQueue.front();
 	_sendDataQueue.pop();
 
-	if (_sendDataQueue.empty() == false)
+	if (!_sendDataQueue.empty())
 	{
 		char* data = _sendDataQueue.front();
 

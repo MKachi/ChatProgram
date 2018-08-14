@@ -1,8 +1,8 @@
 #include "Server.h"
 #include "Protocol.h"
 
-Server::Server(Service& service)
-	: _acceptor(service)
+Server::Server(Service& service, const int port)
+	: _acceptor(service, TcpEndPoint(boost::asio::ip::tcp::v4(), port))
 	, _serverFull(false) { }
 
 Server::~Server() { }
@@ -20,7 +20,7 @@ bool Server::accept()
 	_clientIds.pop();
 
 	_acceptor.async_accept(_clients[id]->getSocket(),
-		std::bind(&Server::acceptHandle, this,
+		boost::bind(&Server::acceptHandle, this,
 			_clients[id], boost::asio::placeholders::error));
 
 	return true;

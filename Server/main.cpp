@@ -9,13 +9,14 @@ enum
 int main()
 {
 	Service		service;
-	TcpEndPoint endPoint(boost::asio::ip::tcp::v4(), PORT);
 
-	Server server(service);
+	Server server(service, PORT);
 	server.init(MAX_CLIENT);
 	server.run();
 
 	service.run();
+
+	getchar();
 
 	return 0;
 }

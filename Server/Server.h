@@ -19,7 +19,7 @@ private:
 	void acceptHandle(Client* client, const ErrorCode& error);
 
 public:
-	Server(Service& service);
+	Server(Service& service, const int port);
 	~Server();
 
 	void init(const int maxClientCount);
