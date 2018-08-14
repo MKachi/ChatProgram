@@ -13,11 +13,12 @@ void Client::receive()
 {
 	_mutex.lock();
 
-	while (!_sendDataQueue.empty())
-	{
-		delete[] _sendDataQueue.front();
-		_sendDataQueue.pop();
-	}
+	_socket.async_read_some(
+		boost::asio::buffer(_receiveBuffer),
+		boost::bind(&Client::receiveHandle, this,
+			boost::asio::placeholders::error,
+			boost::asio::placeholders::bytes_transferred)
+	);
 
 	_mutex.unlock();
 }
@@ -30,6 +31,7 @@ void Client::processPacket(const char* data)
 	case PacketType::Connect_Success:
 	{
 		Connect_Success* connect = (Connect_Success*)packet;
+		_login = connect->isSuccess;
 		std::cout << "로그인 성공 반환 값 : " << connect->isSuccess << std::endl;
 	}
 		break;
@@ -150,7 +152,7 @@ void Client::send(const int size, char* data, const bool straight)
 		_sendDataQueue.push(buffer);
 	}
 
-	if (straight || _sendDataQueue.size() < 2)
+	if (straight || !_sendDataQueue.empty())
 	{
 		boost::asio::async_write(_socket, boost::asio::buffer(buffer, size),
 			boost::bind(&Client::writeHandle, this,
