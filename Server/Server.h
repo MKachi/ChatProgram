@@ -3,7 +3,6 @@
 #include <iostream>
 #include <vector>
 #include <queue>
-#include <boost/bind.hpp>
 #include "Client.h"
 
 class Server
