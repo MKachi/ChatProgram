@@ -2,5 +2,13 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Client.cpp" />
+    <ClCompile Include="Server.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Protocol.h" />
+    <ClInclude Include="Type.h" />
+    <ClInclude Include="Client.h" />
+    <ClInclude Include="Server.h" />
   </ItemGroup>
 </Project>
