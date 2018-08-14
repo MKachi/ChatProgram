@@ -11,7 +11,7 @@ enum
 int main()
 {
 	Service service;
-	TcpEndPoint endPoint(boost::asio::ip::address::from_string("172.30.139.225"), PORT);
+	TcpEndPoint endPoint(boost::asio::ip::address::from_string("127.0.0.1"), PORT);
 
 	Client client(service);
 	client.connect(endPoint);

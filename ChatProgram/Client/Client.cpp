@@ -1,6 +1,6 @@
 #include "Client.h"
 #include <iostream>
-#include "../Server/Protocol.h"
+#include "Protocol.h"
 
 Client::Client(Service& service)
 	: _service(service)
